@@ -9,50 +9,6 @@ const errorMiddleware = require("./middlewares/error-middleware");
 
 //multiplayer 
 
-const http = require('http');
-const socketIO = require('socket.io');
-const server = http.createServer(app);
-const io = socketIO(server);
-
-
-const Room = mongoose.model('Room', {
-  roomID: String,
-  players: [{ username: String, socketID: String }],
-});
-
-io.on('connection', (socket) => {
-  console.log('A user connected');
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-    // Handle disconnection, remove user from room, show alert, and redirect if needed
-  });
-
-  socket.on('createRoom', async ({ username, roomID }) => {
-    const room = new Room({
-      roomID,
-      players: [{ username, socketID: socket.id }],
-    });
-    await room.save();
-    socket.join(roomID);
-    socket.emit('roomCreated', roomID);
-  });
-
-  socket.on('joinRoom', async ({ username, roomID }) => {
-    const room = await Room.findOne({ roomID });
-
-    if (room && room.players.length < 2) {
-      room.players.push({ username, socketID: socket.id });
-      await room.save();
-      socket.join(roomID);
-      io.to(roomID).emit('roomJoined', roomID);
-    } else {
-      socket.emit('roomFull', roomID);
-    }
-  });
-});
-
-
 
 /* handling cors policy issue */ 
 
@@ -81,7 +37,7 @@ const PORT = 5000;
 
 connectDb().then(() => {
 
-    server.listen(PORT, () => {
+    app.listen(PORT, () => {
         console.log(`server is running at port : ${PORT}`);
     });
 });

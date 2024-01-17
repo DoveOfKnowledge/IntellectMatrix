@@ -25,7 +25,7 @@ const App = () => {
         <Route path="/games" element={<Games/>} />   
         <Route path="/difficultypage/:categoryIndex" element={<DifficultyPage/>} />
         <Route path="/creatorjoinroompage" element={<CreatOrJoinRoomPage/>} />
-        <Route path="/matrixthree/:roomID" element={<MatrixThree/>} />
+        <Route path="/matrixthree" element={<MatrixThree/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/login" element={<Login/>} />
