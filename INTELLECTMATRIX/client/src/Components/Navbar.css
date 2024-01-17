@@ -1,0 +1,70 @@
+.container{
+    max-width: 140rem;
+    padding: 0.1rem 5rem;
+    display: flex;
+    justify-content: space-between ;
+    background-color: black;
+}
+
+.container .logo-brand img{
+    height: 50px;
+}
+
+ul{
+    display: flex;
+    gap: 3rem;
+
+}
+
+a{
+    text-decoration: none;
+    font-size: 2rem;
+    color: rgb(226, 40, 207);
+}
+
+
+li a{
+    text-decoration: none;
+    font-size: 2rem;
+    color: rgb(229, 15, 232);
+    text-shadow:1px 1px 2px #e50fe8,
+              1px 2px 2px #e50fe8,
+              1px 3px 20px #e50fe8,
+              1px 4px 10px #e50fe8;
+    transition: 0.3s ease-in-out;
+}
+
+li{
+    
+    list-style: none;
+    position: relative;
+    
+}
+
+li a:hover{
+    color: rgb(56, 168, 216);
+    text-shadow:1px 1px 2px #0f7eee,
+              1px 2px 2px #0f7eee,
+              1px 3px 20px #0f7eee,
+              1px 4px 10px #135c93;
+}
+
+ul li::after{
+    content: '';
+    height: 2px;
+    width: 0;
+    background:rgb(56, 168, 216);
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    transition: 0.5s;
+}
+
+ul li:hover::after{
+    width: 100%;
+}
+
+    
+
+
+
