@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 export const MatrixThree = () => {
   return (
     <div>
-      <h1>matrix three</h1>
+      <h1>Matrix Three Page</h1>
     </div>
-  )
-}
+  );
+};
 

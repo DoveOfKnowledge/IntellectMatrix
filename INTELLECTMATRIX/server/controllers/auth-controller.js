@@ -27,7 +27,6 @@ const register = async(req , res) => {
         }
 
         //hash the password
-
         // const saltRound = 10;
         // const hash_password = await bcrypt.hash(password, saltRound);
 

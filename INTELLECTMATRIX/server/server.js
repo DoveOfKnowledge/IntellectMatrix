@@ -4,10 +4,74 @@ const app = express();
 const cors = require("cors");
 const authRoute = require("./router/auth-router");
 const contactRoute = require("./router/contact-router");
+const roomRoute = require("./router/room-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
 
-//multiplayer 
+
+//multiplayer
+
+const http = require('http');
+const socketIO = require('socket.io');
+const server = http.createServer(app);
+const io = socketIO(server);
+
+
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  socket.on('disconnect', async () => {
+    console.log('User disconnected');
+    // Handle disconnection, remove user from room, show alert, and redirect if needed
+    const room = await Room.findOne({ 'players.socketID': socket.id });
+    if (room) {
+      room.players = room.players.filter((player) => player.socketID !== socket.id);
+      await room.save();
+      io.to(room.roomID).emit('playerLeft', socket.id);
+    }
+  });
+
+  socket.on('createRoom', async ({ username, roomID }) => {
+    // Assume that you have set up a POST API endpoint for creating a room
+    const response = await fetch('http://localhost:3001/room/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, roomID, socketID: socket.id }),
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      socket.join(roomID);
+      socket.emit('roomCreated', roomID);
+      io.to(roomID).emit('playerJoined', { username, socketID: socket.id });
+    } else {
+      socket.emit('roomError', result.message);
+    }
+  });
+
+  socket.on('joinRoom', async ({ username, roomID }) => {
+    // Assume that you have set up a POST API endpoint for joining a room
+    const response = await fetch('http://localhost:3001/room/join', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, roomID, socketID: socket.id }),
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      socket.join(roomID);
+      io.to(roomID).emit('playerJoined', { username, socketID: socket.id });
+      socket.emit('roomJoined', roomID);
+    } else {
+      socket.emit('roomError', result.message);
+    }
+  });
+});
+
 
 
 /* handling cors policy issue */ 
@@ -30,6 +94,8 @@ app.use(express.json());
 //mount the touter: to use the router in main express app
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
+app.use("/api/room", roomRoute);
+
 
 app.use(errorMiddleware);
 
@@ -37,7 +103,7 @@ const PORT = 5000;
 
 connectDb().then(() => {
 
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
         console.log(`server is running at port : ${PORT}`);
     });
 });
