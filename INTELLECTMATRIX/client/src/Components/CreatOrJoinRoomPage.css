@@ -35,15 +35,12 @@
     margin-left: 10px;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 51vh;
   }
   
   .cj-btn:hover {
     background-color: #45a049;
   }
   
-  .cj-p {
-    color: #ff0000;
-    margin-top: 10px;
-    margin-bottom: 47vh;
-  }
+
   

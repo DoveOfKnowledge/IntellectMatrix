@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
 
   socket.on('createRoom', async ({ username, roomID }) => {
     // Assume that you have set up a POST API endpoint for creating a room
-    const response = await fetch('http://localhost:5000/api/auth/room', {
+    const response = await fetch('http://localhost:5000/api/room/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
 
   socket.on('joinRoom', async ({ username, roomID }) => {
     // Assume that you have set up a POST API endpoint for joining a room
-    const response = await fetch('http://localhost:5000/api/auth/room', {
+    const response = await fetch('http://localhost:5000/api/room/join', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const PORT = 5000;
 
 connectDb().then(() => {
 
-    server.listen(PORT, () => {
+    app.listen(PORT, () => {
         console.log(`server is running at port : ${PORT}`);
     });
 });

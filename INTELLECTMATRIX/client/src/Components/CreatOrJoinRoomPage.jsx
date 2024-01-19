@@ -2,27 +2,32 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import "./CreatOrJOinRoomPage.css";
+import { toast } from 'react-toastify';
+
 
 export const CreatOrJoinRoomPage = () => {
   const [username, setUsername] = useState('');
   const [roomID, setRoomID] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const socket = io('');
+  const socket = io('http://localhost:5173');
+
 
   const handleCreateRoom = async () => {
     if (username && roomID) {
       socket.emit('createRoom', { username, roomID });
+      toast.success("room created successfully");
     } else {
-      setError('Please fill in both username and room ID');
+      toast.error('Please fill in both username and room ID');
     }
   };
 
   const handleJoinRoom = async () => {
     if (username && roomID) {
       socket.emit('joinRoom', { username, roomID });
+      toast.success("room joined successfully");    
     } else {
-      setError('Please fill in both username and room ID');
+      toast.error('Please fill in both username and room ID');
     }
   };
 
@@ -34,16 +39,14 @@ export const CreatOrJoinRoomPage = () => {
     navigate(`/matrixthree/${roomId}`);
   });
 
-  socket.on('roomError', (errorMessage) => {
-    setError(errorMessage);
-  });
+
 
   return (
     <div className='createjoin-container'>
       <h1 className='cj-h1'>Create or Join Room</h1>
       <label>Username</label>
       <input
-      className='cj-input'
+        className='cj-input'
         type="text"
         placeholder="Enter your username"
         value={username}
@@ -61,7 +64,6 @@ export const CreatOrJoinRoomPage = () => {
       <br />
       <button className='cj-btn' onClick={handleCreateRoom}>Create Room</button>
       <button className='cj-btn' onClick={handleJoinRoom}>Join Room</button>
-      {error && <p className='cj-p'>{error}</p>}
     </div>
   );
 };
