@@ -28,12 +28,13 @@ io.on('connection', (socket) => {
       room.players = room.players.filter((player) => player.socketID !== socket.id);
       await room.save();
       io.to(room.roomID).emit('playerLeft', socket.id);
+      console.log("Player Disconnected");
     }
   });
 
   socket.on('createRoom', async ({ username, roomID }) => {
     // Assume that you have set up a POST API endpoint for creating a room
-    const response = await fetch('http://localhost:3001/room/create', {
+    const response = await fetch('http://localhost:5000/api/auth/room', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,6 +46,7 @@ io.on('connection', (socket) => {
     if (result.success) {
       socket.join(roomID);
       socket.emit('roomCreated', roomID);
+      console.log("room created successully");
       io.to(roomID).emit('playerJoined', { username, socketID: socket.id });
     } else {
       socket.emit('roomError', result.message);
@@ -53,7 +55,7 @@ io.on('connection', (socket) => {
 
   socket.on('joinRoom', async ({ username, roomID }) => {
     // Assume that you have set up a POST API endpoint for joining a room
-    const response = await fetch('http://localhost:3001/room/join', {
+    const response = await fetch('http://localhost:5000/api/auth/room', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,12 +68,12 @@ io.on('connection', (socket) => {
       socket.join(roomID);
       io.to(roomID).emit('playerJoined', { username, socketID: socket.id });
       socket.emit('roomJoined', roomID);
+      console.log("room joined successully");
     } else {
       socket.emit('roomError', result.message);
     }
   });
 });
-
 
 
 /* handling cors policy issue */ 

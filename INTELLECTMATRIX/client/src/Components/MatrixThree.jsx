@@ -1,10 +1,12 @@
 import React from 'react';
+import { useParams} from 'react-router-dom';
 
 export const MatrixThree = () => {
+  const { roomID } = useParams();
   return (
-    <div>
-      <h1>Matrix Three Page</h1>
-    </div>
-  );
-};
+    <>
+    <h1>matrix three</h1>  
+    </>
+  )
+}
 

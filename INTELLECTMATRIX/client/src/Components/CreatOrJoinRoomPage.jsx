@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
+import "./CreatOrJOinRoomPage.css";
 
 export const CreatOrJoinRoomPage = () => {
   const [username, setUsername] = useState('');
@@ -38,25 +39,29 @@ export const CreatOrJoinRoomPage = () => {
   });
 
   return (
-    <div>
-      <h1>Create or Join Room</h1>
+    <div className='createjoin-container'>
+      <h1 className='cj-h1'>Create or Join Room</h1>
+      <label>Username</label>
       <input
+      className='cj-input'
         type="text"
         placeholder="Enter your username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <br />
+      <label>Room ID</label>
       <input
+      className='cj-input'
         type="text"
         placeholder="Enter room ID"
         value={roomID}
         onChange={(e) => setRoomID(e.target.value)}
       />
       <br />
-      <button onClick={handleCreateRoom}>Create Room</button>
-      <button onClick={handleJoinRoom}>Join Room</button>
-      {error && <p>{error}</p>}
+      <button className='cj-btn' onClick={handleCreateRoom}>Create Room</button>
+      <button className='cj-btn' onClick={handleJoinRoom}>Join Room</button>
+      {error && <p className='cj-p'>{error}</p>}
     </div>
   );
 };

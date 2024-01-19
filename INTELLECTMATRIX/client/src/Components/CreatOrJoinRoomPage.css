@@ -1,0 +1,49 @@
+    .creatjoin-container {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(45deg, #8e2de2, #4a00e0);
+    margin: 0;
+    display: flex;
+    height: 90vh;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .cj-h1 {
+    color: #b5e3a9;
+    margin-left: 0px;
+    
+  }
+  
+   .cj-input {
+    padding: 10px;
+    margin: 10px 30px;
+    width: 30%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .cj-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 10px;
+    margin-top: 10px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cj-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .cj-p {
+    color: #ff0000;
+    margin-top: 10px;
+    margin-bottom: 47vh;
+  }
+  

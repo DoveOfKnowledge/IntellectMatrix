@@ -528,7 +528,6 @@ img {
 ** dificulty Page css
 ** -------------------------  */
 
-/* DifficultyPage.css */
 .difficulty-container {
   text-align: center;
   max-width: 600px;
@@ -592,4 +591,5 @@ button:hover {
   opacity: 0.8;
 }
  
+
 
