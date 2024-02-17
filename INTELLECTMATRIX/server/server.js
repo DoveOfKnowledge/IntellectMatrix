@@ -5,6 +5,8 @@ const cors = require("cors");
 const authRoute = require("./router/auth-router");
 const contactRoute = require("./router/contact-router");
 const roomRoute = require("./router/room-router");
+const quizRoutes = require("./router/quiz-router");
+const ticTacToeRoutes = require("./router/tictacToe-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
 
@@ -97,6 +99,8 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
 app.use("/api/room", roomRoute);
+app.use('/api/quiz',quizRoutes);
+app.use('/api/tictactoe',ticTacToeRoutes);
 
 
 app.use(errorMiddleware);
@@ -105,7 +109,7 @@ const PORT = 5000;
 
 connectDb().then(() => {
 
-    server.listen(PORT, () => {
+    app.listen(PORT, () => {
         console.log(`server is running at port : ${PORT}`);
     });
 });

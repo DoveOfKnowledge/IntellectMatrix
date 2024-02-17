@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory} from 'react-router-use-history';
 import io from 'socket.io-client';
 import "./CreatOrJOinRoomPage.css";
 import { toast } from 'react-toastify';
@@ -9,7 +9,8 @@ export const CreatOrJoinRoomPage = () => {
   const [username, setUsername] = useState('');
   const [roomID, setRoomID] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const history = useHistory();
+
   const socket = io('http://localhost:5173');
 
 
@@ -32,11 +33,11 @@ export const CreatOrJoinRoomPage = () => {
   };
 
   socket.on('roomCreated', (roomId) => {
-    navigate(`/matrixthree/${roomId}`);
+    history.push(`/matrixthree/${roomId}`);
   });
 
   socket.on('roomJoined', (roomId) => {
-    navigate(`/matrixthree/${roomId}`);
+    history.push(`/matrixthree/${roomId}`);
   });
 
 
@@ -62,7 +63,8 @@ export const CreatOrJoinRoomPage = () => {
         onChange={(e) => setRoomID(e.target.value)}
       />
       <br />
-      <button className='cj-btn' onClick={handleCreateRoom}>Create Room</button>
+ 
+      <button className='cj-btn' onClick={handleCreateRoom}>Create Room</button>      
       <button className='cj-btn' onClick={handleJoinRoom}>Join Room</button>
     </div>
   );

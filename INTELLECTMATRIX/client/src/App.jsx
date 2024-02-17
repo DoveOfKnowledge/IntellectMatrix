@@ -2,6 +2,8 @@ import React from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {Home} from "./pages/Home";
 import { Games } from './pages/Games';
+import { Quiz } from './Components/Quiz';
+import { TicTacToe } from './Components/TicTacToe';
 import {About} from "./pages/About";
 import {Contact} from "./pages/Contact"
 import {Login} from "./pages/Login";
@@ -26,6 +28,8 @@ const App = () => {
         <Route path="/difficultypage/:categoryIndex" element={<DifficultyPage/>} />
         <Route path="/creatorjoinroompage" element={<CreatOrJoinRoomPage/>} />
         <Route path="/matrixthree/:roomID" element={<MatrixThree/>} />
+        <Route path="/quiz" element={<Quiz/>} />  
+        <Route path="/ticTacToe" element={<TicTacToe/>} />  
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/login" element={<Login/>} />
